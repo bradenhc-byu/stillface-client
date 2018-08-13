@@ -1,0 +1,37 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.github.bradenhitchcock.stillface.client</groupId>
+  <artifactId>data-manager-client</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <name>StillFace Data Manager</name>
+  
+  <!-- Output to an executable JAR -->
+  <packaging>jar</packaging>
+  
+  <description>A data management tool for research data obtained by Brigham Young University Project Media for the Still 
+  Face project</description>
+  
+  <dependencies>
+  	<dependency>
+  		<groupId>org.apache.derby</groupId>
+  		<artifactId>derbyclient</artifactId>
+  		<version>10.14.2.0</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>com.googlecode.cqengine</groupId>
+  		<artifactId>cqengine</artifactId>
+  		<version>2.12.4</version>
+  	</dependency>
+  	
+  	<!-- Some common dependencies for testing -->
+  	<dependency>
+  		<groupId>org.junit.jupiter</groupId>
+  		<artifactId>junit-jupiter-api</artifactId>
+  		<version>5.3.0-M1</version>
+  		<scope>test</scope>
+  	</dependency>
+  </dependencies>
+  
+</project>
