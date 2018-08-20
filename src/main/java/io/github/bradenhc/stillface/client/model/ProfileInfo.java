@@ -5,12 +5,8 @@ import java.sql.Date;
 
 import static com.googlecode.cqengine.query.QueryFactory.attribute;
 
-/**
- * Provides the data structure for holding information from an import entry in the database.
- */
-public class DataPoint {
-
-    /* The member variables representing the schema of the database table. An additional argument (pid) is provided
+public class ProfileInfo {
+	/* The member variables representing the schema of the database table. An additional argument (pid) is provided
      * to construct the whole PID of the entry from the import given its components. */
     private int importID = 0;
     private String filename;
@@ -27,26 +23,26 @@ public class DataPoint {
      * create extremely fast indexing capabilities and cache data in memory for use. Data is only cached if
      * the model.cache configuration option is set to 'true'
      */
-    public static final Attribute<DataPoint, Integer> IMPORT_ID =
-            attribute("importID", DataPoint::getImportID);
-    public static final Attribute<DataPoint, String> FILENAME =
-            attribute("filename", DataPoint::getFilename);
-    public static final Attribute<DataPoint, Integer> YEAR =
-            attribute("year", DataPoint::getYear);
-    public static final Attribute<DataPoint, Integer> FAMILY_ID =
-            attribute("familyID", DataPoint::getFamilyID);
-    public static final Attribute<DataPoint, Integer> PARTICIPANT_ID =
-            attribute("participantNumber", DataPoint::getParticipantNumber);
-    public static final Attribute<DataPoint, Tag> TAG =
-            attribute("tag", DataPoint::getTag);
-    public static final Attribute<DataPoint, String> ALIAS =
-            attribute("alias", DataPoint::getAlias);
-    public static final Attribute<DataPoint, Date> DATE =
-            attribute("date", DataPoint::getDate);
-    public static final Attribute<DataPoint, String> PID =
-            attribute("pid", DataPoint::getPid);
+    public static final Attribute<ProfileInfo, Integer> IMPORT_ID =
+            attribute("importID", ProfileInfo::getImportID);
+    public static final Attribute<ProfileInfo, String> FILENAME =
+            attribute("filename", ProfileInfo::getFilename);
+    public static final Attribute<ProfileInfo, Integer> YEAR =
+            attribute("year", ProfileInfo::getYear);
+    public static final Attribute<ProfileInfo, Integer> FAMILY_ID =
+            attribute("familyID", ProfileInfo::getFamilyID);
+    public static final Attribute<ProfileInfo, Integer> PARTICIPANT_ID =
+            attribute("participantNumber", ProfileInfo::getParticipantNumber);
+    public static final Attribute<ProfileInfo, Tag> TAG =
+            attribute("tag", ProfileInfo::getTag);
+    public static final Attribute<ProfileInfo, String> ALIAS =
+            attribute("alias", ProfileInfo::getAlias);
+    public static final Attribute<ProfileInfo, Date> DATE =
+            attribute("date", ProfileInfo::getDate);
+    public static final Attribute<ProfileInfo, String> PID =
+            attribute("pid", ProfileInfo::getPid);
 
-    public DataPoint(int importID, String filename, int year, int familyID, int participantNumber,
+    public ProfileInfo(int importID, String filename, int year, int familyID, int participantNumber,
                            Tag tag, String alias, Date date) {
         this.importID = importID;
         this.filename = filename;
@@ -59,7 +55,7 @@ public class DataPoint {
         this.pid = String.format("%d-%03d-%02d", this.year, this.familyID, this.participantNumber);
     }
 
-    public DataPoint(String filename, int year, int familyID, int participantNumber,
+    public ProfileInfo(String filename, int year, int familyID, int participantNumber,
                            Tag tag, String alias, Date date) {
         this.filename = filename;
         this.year = year;
@@ -130,7 +126,7 @@ public class DataPoint {
     @Override
     public boolean equals(Object o){
         if(o == null || o.getClass() != this.getClass()) return false;
-        DataPoint sfImport = (DataPoint)o;
+        ProfileInfo sfImport = (ProfileInfo)o;
         if(sfImport.getImportID() != this.getImportID()) return false;
         return true;
     }
