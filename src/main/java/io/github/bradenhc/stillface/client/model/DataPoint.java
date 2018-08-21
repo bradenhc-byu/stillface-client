@@ -1,142 +1,109 @@
 package io.github.bradenhc.stillface.client.model;
 
 import com.googlecode.cqengine.attribute.Attribute;
-import java.sql.Date;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 import static com.googlecode.cqengine.query.QueryFactory.attribute;
 
 /**
- * Provides the data structure for holding information from an import entry in the database.
+ * DataPoint Internal data structure for holding information from a data entry in the database
  */
 public class DataPoint {
 
-    /* The member variables representing the schema of the database table. An additional argument (pid) is provided
-     * to construct the whole PID of the entry from the import given its components. */
-    private int importID = 0;
-    private String filename;
-    private int year;
-    private int familyID;
-    private int participantNumber;
-    private Tag tag;
-    private String alias;
-    private Date date;
-    private String pid;
+	/*
+	 * These variables are for the JavaFX Table object in the GUI. The table cells are populated using a CellFactory,
+	 * and in order to do this we need to have special variable types
+	 */
+	private SimpleIntegerProperty dataID = new SimpleIntegerProperty();
+	private SimpleIntegerProperty importID = new SimpleIntegerProperty();
+	private SimpleIntegerProperty time = new SimpleIntegerProperty();
+	private SimpleIntegerProperty duration = new SimpleIntegerProperty();
+	private SimpleObjectProperty<Code> code = new SimpleObjectProperty<>();
+	private SimpleStringProperty comment = new SimpleStringProperty();
 
-    /*
-     * The following variables are defined for use with the CQEngine IndexedCollections. This allows us to
-     * create extremely fast indexing capabilities and cache data in memory for use. Data is only cached if
-     * the model.cache configuration option is set to 'true'
-     */
-    public static final Attribute<DataPoint, Integer> IMPORT_ID =
-            attribute("importID", DataPoint::getImportID);
-    public static final Attribute<DataPoint, String> FILENAME =
-            attribute("filename", DataPoint::getFilename);
-    public static final Attribute<DataPoint, Integer> YEAR =
-            attribute("year", DataPoint::getYear);
-    public static final Attribute<DataPoint, Integer> FAMILY_ID =
-            attribute("familyID", DataPoint::getFamilyID);
-    public static final Attribute<DataPoint, Integer> PARTICIPANT_ID =
-            attribute("participantNumber", DataPoint::getParticipantNumber);
-    public static final Attribute<DataPoint, Tag> TAG =
-            attribute("tag", DataPoint::getTag);
-    public static final Attribute<DataPoint, String> ALIAS =
-            attribute("alias", DataPoint::getAlias);
-    public static final Attribute<DataPoint, Date> DATE =
-            attribute("date", DataPoint::getDate);
-    public static final Attribute<DataPoint, String> PID =
-            attribute("pid", DataPoint::getPid);
+	/*
+	 * The following variables are defined for use with the CQEngine IndexedCollections. This allows us to create
+	 * extremely fast indexing capabilities and cache data in memory for use. Data is only cached if the model.cache
+	 * configuration option is set to 'true'
+	 */
+	public static final Attribute<DataPoint, Integer> DATA_ID = attribute("dataID", DataPoint::getDataID);
+	public static final Attribute<DataPoint, Integer> IMPORT_ID = attribute("importID", DataPoint::getImportID);
+	public static final Attribute<DataPoint, Integer> TIME = attribute("time", DataPoint::getTime);
+	public static final Attribute<DataPoint, Integer> DURATION = attribute("duration", DataPoint::getDuration);
+	public static final Attribute<DataPoint, Code> CODE = attribute("code", DataPoint::getCode);
+	public static final Attribute<DataPoint, String> COMMENT = attribute("comment", DataPoint::getComment);
 
-    public DataPoint(int importID, String filename, int year, int familyID, int participantNumber,
-                           Tag tag, String alias, Date date) {
-        this.importID = importID;
-        this.filename = filename;
-        this.year = year;
-        this.familyID = familyID;
-        this.participantNumber = participantNumber;
-        this.tag = tag;
-        this.alias = alias;
-        this.date = date;
-        this.pid = String.format("%d-%03d-%02d", this.year, this.familyID, this.participantNumber);
-    }
+	public DataPoint(int importID, int time, int duration, Code code, String comment) {
+		this.importID = new SimpleIntegerProperty(importID);
+		this.setTime(time);
+		this.setDuration(duration);
+		this.setCode(code);
+		this.setComment(comment);
+	}
 
-    public DataPoint(String filename, int year, int familyID, int participantNumber,
-                           Tag tag, String alias, Date date) {
-        this.filename = filename;
-        this.year = year;
-        this.familyID = familyID;
-        this.participantNumber = participantNumber;
-        this.tag = tag;
-        this.alias = alias;
-        this.date = date;
-        this.pid = String.format("%d-%d-%d", this.year, this.familyID, this.participantNumber);
-    }
+	public DataPoint(int dataID, int importID, int time, int duration, Code code, String comment) {
+		this.dataID = new SimpleIntegerProperty(dataID);
+		this.importID = new SimpleIntegerProperty(importID);
+		this.setTime(time);
+		this.setDuration(duration);
+		this.setCode(code);
+		this.setComment(comment);
+	}
 
-    public int getImportID() {
-        return importID;
-    }
+	public int getTime() {
+		return time.get();
+	}
 
-    public String getFilename() {
-        return filename;
-    }
+	public void setTime(int time) {
+		this.time.set(time);
+	}
 
-    public int getYear() {
-        return year;
-    }
+	public int getDuration() {
+		return duration.get();
+	}
 
-    public int getFamilyID() {
-        return familyID;
-    }
+	public void setDuration(int duration) {
+		this.duration.set(duration);
+	}
 
-    public int getParticipantNumber() {
-        return participantNumber;
-    }
+	public Code getCode() {
+		return code.get();
+	}
 
-    public String getAlias() {
-        return alias;
-    }
+	public void setCode(Code code) {
+		this.code.set(code);
+	}
 
-    public Date getDate() {
-        return date;
-    }
+	public String getComment() {
+		return comment.get();
+	}
 
-    public void setAlias(String alias) {
-        this.alias = alias;
-    }
+	public void setComment(String comment) {
+		this.comment.set(comment);
+	}
 
-    public void setYear(int year) {
-        this.year = year;
-    }
+	public int getDataID() {
+		return dataID.get();
+	}
 
-    public void setFamilyID(int familyID) {
-        this.familyID = familyID;
-    }
+	public void setImportID(int importID) {
+		this.importID.set(importID);
+	}
 
-    public void setParticipantNumber(int participantNumber) {
-        this.participantNumber = participantNumber;
-    }
+	public int getImportID() {
+		return importID.get();
+	}
 
-    public String getPid() { return this.pid; }
+	@Override
+	public int hashCode() {
+		int result = code.hashCode();
+		result = result * 24 + dataID.get();
+		result = result >> (time.get() % 4);
+		result = result * 13 + time.get();
+		result += comment.get().hashCode();
+		return result;
+	}
 
-    public void setPid(String pid) { this.pid = pid;}
-
-    public Tag getTag() {
-        return tag;
-    }
-
-    public void setTag(Tag tag) {
-        this.tag = tag;
-    }
-
-    @Override
-    public boolean equals(Object o){
-        if(o == null || o.getClass() != this.getClass()) return false;
-        DataPoint sfImport = (DataPoint)o;
-        if(sfImport.getImportID() != this.getImportID()) return false;
-        return true;
-    }
-
-    @Override
-    public String toString(){
-        return String.format("%s : %s - %s [%s]", pid, tag, alias,date);
-    }
 }
