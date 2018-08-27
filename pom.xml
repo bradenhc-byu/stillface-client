@@ -21,6 +21,11 @@
 			<version>1.0.0</version>
 		</dependency>
 		<dependency>
+			<groupId>io.github.bradenhc</groupId>
+			<artifactId>jconfig</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.derby</groupId>
 			<artifactId>derbyclient</artifactId>
 			<version>10.14.2.0</version>
@@ -30,6 +35,21 @@
 			<artifactId>cqengine</artifactId>
 			<version>2.12.4</version>
 		</dependency>
+
+		<!-- Configuration -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-configuration2</artifactId>
+			<version>2.3</version>
+		</dependency>
+
+		<!-- OS Validation -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.8</version>
+		</dependency>
+
 
 		<!-- Some common dependencies for testing -->
 		<dependency>

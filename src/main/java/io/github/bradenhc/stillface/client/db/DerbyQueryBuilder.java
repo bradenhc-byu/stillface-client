@@ -13,7 +13,7 @@ import io.github.bradenhc.querybaker.sql.DataType;
 import static io.github.bradenhc.querybaker.cond.Condition.*;
 import static io.github.bradenhc.querybaker.sql.Insert.*;
 
-public class QueryBuilder implements IQueryBuilder {
+public class DerbyQueryBuilder implements IQueryBuilder {
 
 	// Profile Info
 	private final Table mTableProfileInfo = Table.create("sf_imports").alias("sfi");
@@ -45,8 +45,24 @@ public class QueryBuilder implements IQueryBuilder {
 	private final Table mTableTags = Table.create("sf_tags").alias("sft");
 	private final Column mColTagId = new Column("tid", DataType.INTEGER, 1, true, true);
 	private final Column mColTagValue = new Column("value", DataType.VARCHAR, 200, true);
+	
+	private static volatile DerbyQueryBuilder sSingleton = null;
+	private static Object sMutex = new Object();
+	
+	public static DerbyQueryBuilder instance() {
+		DerbyQueryBuilder qb = sSingleton;
+		if(qb == null) {
+			synchronized(sMutex) {
+				qb = sSingleton;
+				if(qb == null) {
+					sSingleton = qb = new DerbyQueryBuilder();
+				}
+			}
+		}
+		return qb;
+	}
 
-	public QueryBuilder() {
+	private DerbyQueryBuilder() {
 		// Initialze the tables with their columns
 		// Profile info table
 		mColImportId.setAutoIncrement(true);
